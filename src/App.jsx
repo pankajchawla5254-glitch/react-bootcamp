@@ -1,28 +1,41 @@
 import { useState } from "react";
 
 function App() {
-  const [name, setName] = useState("pankaj");
+  const [task, setTask] = useState("");
+  const [tasks, setTasks] = useState([]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert(`Welcome ${name}`);
+  const addTask = () => {
+    if (task === "") return;
+
+    setTasks([...tasks, task]);
+    setTask("");
+  };
+
+  const deleteTask = (index) => {
+    const newTasks = tasks.filter((_, i) => i !== index);
+    setTasks(newTasks);
   };
 
   return (
-    <div>
-      <h1>Mini Login</h1>
+    <div style={{ padding: "20px" }}>
+      <h1>Todo App</h1>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="Enter your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+      <input
+        placeholder="Enter task"
+        value={task}
+        onChange={(e) => setTask(e.target.value)}
+      />
 
-        <button type="submit">Login</button>
-      </form>
+      <button onClick={addTask}>Add</button>
 
-      <p>You typed: {name}</p>
+      <ul>
+        {tasks.map((item, index) => (
+          <li key={index}>
+            {item}
+            <button onClick={() => deleteTask(index)}>X</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
