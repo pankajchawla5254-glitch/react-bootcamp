@@ -1,22 +1,28 @@
 import { useState } from "react";
-import Profile from "./components/Profile";
 
 function App() {
-  const [count, setCount] = useState(0)
-  
+  const [name, setName] = useState("pankaj");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(`Welcome ${name}`);
+  };
+
   return (
     <div>
-      <h1>Hello React</h1>
+      <h1>Mini Login</h1>
 
-      <h2>Count: {count}</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          placeholder="Enter your name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
 
-      <button onClick={()=> setCount(count+1)}>
-        Increase
-      </button>
+        <button type="submit">Login</button>
+      </form>
 
-      <Profile name="Pankaj Kumar" role="React Intern" location="India" />
-
-      <Profile name="John Doe" role="Frontend Developer" location="USA" />
+      <p>You typed: {name}</p>
     </div>
   );
 }
